@@ -4,71 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2FA Code Generator</title>
-    <style>
-        body{
-            font-family: sans-serif;
-            text-align: center;
-            margin-top: 50px;
-
-         }
-
-        
-        .dark-mode{
-            background: linear-gradient(135deg, #333, #222 40%, #111 70%, #000);
-            color: white;
-        }
-
-        input{
-            padding: 10px;
-            width: 300px;
-            font-size: 16px;
-            outline: none;
-            border-radius: 12px;
-        }
-        h1 {
-            margin-bottom: 20px;
-        }
-        #code {
-            font-size: 36px;
-            margin-top: 20px;
-            font-weight: bold;
-        }
-
-        #copy-btn{
-            border: none;
-            outline: none;
-            padding: 10px;
-            width: 150px;
-            background: black;
-            color: white;
-            font-size: 16px;
-            transition: 1ms ease;
-            border-radius: 10px;
-            margin-top: 10px;
-        }
-
-        #copy-btn:active{
-            background-color: rgb(255, 255, 255);
-            color: rgb(0, 0, 0);
-            border: 1px solid black;
-        }
-
-        #dark-mode-toggle{
-            border: none;
-            outline: none;
-            padding: 10px;
-            width: 150px;
-            background: black;
-            color: white;
-            font-size: 16px;
-            transition: 1s ease;
-            border-radius: 10px;
-            margin-top: 10px;
-            margin-bottom: 20px;
-        };
-
-
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <button id="dark-mode-toggle">Toggle Dark Mode</button>
@@ -83,54 +19,6 @@
 
     <script src="https://unpkg.com/otplib@11.0.1/otplib-browser.js"></script>
 
-    <script>
-        const input = document.getElementById("secret");
-        const codeDisplay = document.getElementById("code");
-
-        const authenticator = otplib.authenticator;
-
-        function updateCode(){
-            const secret = input.value.trim();
-
-            if(secret.length > 0){
-                try {
-                    const token = authenticator.generate(secret);
-                    codeDisplay.textContent = token;
-                }catch (err) {
-                    codeDisplay.textContent = "Invalid";
-                }
-            } else {
-                codeDisplay.textContent = "_ _ _ _ _ _"
-            }
-        }
-
-
-        setInterval(updateCode, 1000);
-        input.addEventListener("input", updateCode);
-
-
-
-        // --- Copy Button
-
-        const copyBtn = document.getElementById("copy-btn");
-
-        copyBtn.addEventListener("click", ()=>{
-            const code = codeDisplay.textContent;
-            if(code && code !== "_ _ _ _ _ _" && code !== "Invalid") {
-                navigator.clipboard.writeText(code)
-                .then(()=> alert("Code copied"))
-                .catch(()=> alert("Failed to copy"))
-            }
-        });
-
-
-        // Dark Mode
-
-        const darkMOdeBtn = document.getElementById("dark-mode-toggle");
-        darkMOdeBtn.addEventListener("click", ()=>{
-            document.body.classList.toggle("dark-mode");
-        });
-
-    </script>
+    <script src="script.js"> </script>
 </body>
 </html>
